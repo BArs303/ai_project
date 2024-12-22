@@ -4,12 +4,17 @@ import torch
 from transformers import T5ForConditionalGeneration, T5Tokenizer, pipeline
 
 st.title("AI translator")
-text = st.text_input(label="abc")
-#command = "summarize | "
-#command = "translate en-ru | "
-command = "translate ru-en | "
+text = st.text_input(label="Text input field")
 
-#st.write(command+text)
+command_type = st.radio(
+    "Model type:",
+    ["Translator", "Summary"],
+)
+
+if command_type == "Translator":
+   command = "translate ru-en | "
+else:
+    command = "summarize | "
 
 model_name = "cointegrated/rut5-base-multitask"
 tokenizer = T5Tokenizer.from_pretrained(model_name)
@@ -20,5 +25,7 @@ def generate(text, **kwargs):
     with torch.no_grad():
         hypotheses = model.generate(**inputs, num_beams=5, **kwargs)
     return tokenizer.decode(hypotheses[0], skip_special_tokens=True)
+
 if text:    
-	st.write(generate(command+text))
+    st.write(generate(command+text))
+
