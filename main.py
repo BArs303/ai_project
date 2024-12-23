@@ -8,13 +8,13 @@ text = st.text_input(label="Text input field")
 
 command_type = st.radio(
     "Model type:",
-    ["Translator", "Simplification"],
+    ["Translator", "paraphrase"],
 )
 
 if command_type == "Translator":
    command = "translate en-ru | "
 else:
-    command = "simplify | "
+    command = "paraphrase | "
 
 
 model_name = "cointegrated/rut5-base-multitask"
@@ -28,8 +28,9 @@ def generate(text, **kwargs):
     return tokenizer.decode(hypotheses[0], skip_special_tokens=True)
 
 if text:   
-    if command[0] == 's':
-        st.write(generate(command+text),max_length=50)
+    if command == "paraphrase | ":
+        st.write(generate(command+text), encoder_no_repeat_ngram_size=1, repetition_penalty=0.5, no_repeat_ngram_size=1)
+        st.write("paraphrase option selected")
     else:
         st.write(generate(command+text))
 
