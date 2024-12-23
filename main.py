@@ -13,8 +13,12 @@ command_type = st.radio(
 
 if command_type == "Translator":
    command = "translate en-ru | "
+    if text:    
+        st.write(generate(command+text))
 else:
     command = "simplify | "
+    if text:    
+        st.write(generate(command+text), max_length=50)
 
 model_name = "cointegrated/rut5-base-multitask"
 tokenizer = T5Tokenizer.from_pretrained(model_name)
