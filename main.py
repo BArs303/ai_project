@@ -12,7 +12,7 @@ command_type = st.radio(
 )
 
 if command_type == "Translator":
-   command = "translate ru-en | "
+   command = "translate en-ru | "
 else:
     command = "summarize | "
 
