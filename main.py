@@ -8,13 +8,13 @@ text = st.text_input(label="Text input field")
 
 command_type = st.radio(
     "Model type:",
-    ["Translator", "Summary"],
+    ["Translator", "Simplification"],
 )
 
 if command_type == "Translator":
    command = "translate en-ru | "
 else:
-    command = "summarize | "
+    command = "simplify | "
 
 model_name = "cointegrated/rut5-base-multitask"
 tokenizer = T5Tokenizer.from_pretrained(model_name)
